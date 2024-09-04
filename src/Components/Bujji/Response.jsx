@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import { useInView } from 'react-intersection-observer';
-import ScrollBottom from './ScrollBottom';
+import { LiaSpinnerSolid } from "react-icons/lia";
 
 const Response = ({
   responses,
   staticPrompt,
   isLoading,
+  isStreaming
 }) => {
   const { ref, inView } = useInView({
     triggerOnce: false,
@@ -29,9 +30,10 @@ const Response = ({
             }
             <div className='py-2 '>
               <h1 className='font-extrabold text-lg text-main font-main mb-2'>bujji</h1>
-              <div>
+              <div className={`${isStreaming ? 'animate-pulse' : ''}`}>
                 <ReactMarkdown>
                   {response?.content}
+
                 </ReactMarkdown>
               </div>
             </div>
@@ -67,6 +69,11 @@ const Response = ({
 export default Response
 
 
-const cursor = <div className='animate-pulse'>
-  <div className='h-[17px] bg-gradient-to-t from-orange-800 to-orange-300 rounded-full w-[17px]' />
+const cursor = <div className='flex h-full items-center justify-center'>
+  <LiaSpinnerSolid className='animate-spin icon-color text-2xl text-center' />
 </div>
+
+// const cursor = <div className='animate-spin'>
+//   <LiaSpinnerSolid />
+//   {/* <div className='h-[17px] bg-gradient-to-t from-orange-800 to-orange-300 rounded-full w-[17px]' /> */}
+// </div>

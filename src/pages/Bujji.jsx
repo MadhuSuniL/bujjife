@@ -102,6 +102,7 @@ const CurrentChat = ({
                   responses={responses}
                   staticPrompt={staticPrompt}
                   isLoading={isLoading}
+                  isStreaming={isStreaming}
                 />
               </>
               :
@@ -117,6 +118,8 @@ const CurrentChat = ({
           <div className='max-w-[750px] mx-auto'>
             <Prompt
               setStaticPrompt={setStaticPrompt}
+              isStreaming={isStreaming}
+              isLoading={isLoading}
               setPrompt={setPrompt}
               prompt={prompt}
               onSubmit={sendQueryHandler}

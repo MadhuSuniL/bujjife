@@ -3,7 +3,7 @@ import { FaPaperPlane } from 'react-icons/fa';
 import { WiStars } from "react-icons/wi";
 import Footer from '../Layout/Footer';
 
-const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit }) => {
+const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit, isStreaming, isLoading }) => {
   const [rows, setRows] = useState(1);
   const [showPrompts, setShowPrompts] = useState(false);
   const promptsRef = useRef(null);
@@ -27,12 +27,18 @@ const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit }) => {
     setStaticPrompt(event.target.value);
   };
 
+  const goForSubmit = () => {
+    if (prompt.trim() !== '' && !isStreaming && !isLoading) {
+      setRows(1);
+      onSubmit();
+    }
+  };
+
   // Prevent form submission on Enter key
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
-      setRows(1);
-      onSubmit();
+      goForSubmit();
     }
   };
 
@@ -70,8 +76,7 @@ const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit();
-          setRows(1);
+          goForSubmit();
         }}
       >
         <div className="flex justify-between items-center">
@@ -95,6 +100,7 @@ const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit }) => {
           <button
             type="submit"
             className="ml-2 p-2 bg-transparent text-white rounded-full flex-shrink-0"
+            disabled={prompt.trim() === '' || isStreaming || isLoading}
           >
             <FaPaperPlane className='icon-color' />
           </button>
