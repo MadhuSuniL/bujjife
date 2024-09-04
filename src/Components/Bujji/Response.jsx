@@ -1,20 +1,20 @@
 import React from 'react'
-import WordTypewriter from './Typing'
 import ReactMarkdown from 'react-markdown'
+import { useInView } from 'react-intersection-observer';
+import ScrollBottom from './ScrollBottom';
 
 const Response = ({
   responses,
   staticPrompt,
-  typingAllow,
-  setIsTyping,
-  showCursor,
-  setShowCursor,
   isLoading,
 }) => {
-
+  const { ref, inView } = useInView({
+    triggerOnce: false,
+    threshold: 1
+  });
 
   return (
-    <div className='p-3'>
+    <div className='p-3 relative'>
       {
         responses?.map((response, index) =>
           <div key={index}>
@@ -35,24 +35,6 @@ const Response = ({
                 </ReactMarkdown>
               </div>
             </div>
-            {/* <div className='py-2 '>
-              <h1 className='font-extrabold text-lg text-main font-main mb-2'>bujji</h1>
-              {index === responses?.length - 1 && typingAllow && showCursor ? (
-                <WordTypewriter
-                  text={String(response?.response)}
-                  typeSpeed={10}
-                  onBegin={() => setIsTyping(true)}
-                  animate
-                  onComplete={() => {
-                    setIsTyping(false)
-                    setShowCursor(false)
-                  }
-                  }
-                />
-              ) : (
-                <div dangerouslySetInnerHTML={{ __html: response?.response }} />
-              )}
-            </div> */}
           </div>
         )
       }
@@ -73,8 +55,11 @@ const Response = ({
           </div>
         </div>
       }
-
-      <span id='response-bottom'></span>
+      {/* {
+        inView &&
+        <ScrollBottom />
+      } */}
+      <span ref={ref} id='response-bottom'></span>
     </div>
   )
 }

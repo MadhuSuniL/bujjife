@@ -1,16 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getUserToken } from '../Components/Bujji/Functions/localStorage';
+import { addNewResponse, addNewResponseChunk } from '../redux/Slice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const token = getUserToken()
 
 const WithWebsocketConnection = (WrappedComponent) => {
     return (props) => {
         const ws = useRef(null);
+        const { topic_id } = useParams()
+        const topicId = topic_id || 'all'
+        const dispatch = useDispatch()
         const [isConnected, setIsConnected] = useState(false);
-        const [latestResponse, setLatestResponse] = useState(null);
+        const [isLoading, setIsLoading] = useState(false);
+        const [isStreaming, setIsStreaming] = useState(false);
+        const setNewResponseChunk = (newResponseChunk, topicId) => dispatch(addNewResponseChunk({ newResponseChunk, topicId }))
 
         const sendQuery = (query) => {
             if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+                setIsLoading(true)
                 ws.current.send(JSON.stringify(query));
             }
         };
@@ -26,8 +35,17 @@ const WithWebsocketConnection = (WrappedComponent) => {
 
             ws.current.onmessage = (event) => {
                 const data = JSON.parse(event.data);
-                setLatestResponse(prev => ({ ...data }));
-            };
+                if (data.content === '<start>') {
+                    setIsStreaming(true)
+                    setIsLoading(false)
+                }
+                else if (data.content === '<end>') {
+                    setIsStreaming(false)
+                }
+                else {
+                    setNewResponseChunk(data, topicId)
+                };
+            }
 
             ws.current.onerror = (event) => {
                 console.error("WebSocket error observed:", event);
@@ -47,8 +65,15 @@ const WithWebsocketConnection = (WrappedComponent) => {
                 }
             };
         }, []);
+
         return (
-            <WrappedComponent {...props} isConnected={isConnected} sendQuery={sendQuery} latestResponse={latestResponse} />
+            <WrappedComponent
+                {...props}
+                isConnected={isConnected}
+                isLoading={isLoading}
+                isStreaming={isStreaming}
+                sendQuery={sendQuery}
+            />
         )
     }
 }

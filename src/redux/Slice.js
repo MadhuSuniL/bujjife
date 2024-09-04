@@ -66,18 +66,16 @@ export const Slice = createSlice({
 
     addNewResponse: (state, action) => {
       const { newResponse, topicId } = action.payload;
-      console.log({ newResponse, topicId });
       state.responses[topicId].push(newResponse);
     },
     addNewResponseChunk: (state, action) => {
-      const newResponseChunk = action.payload;
-      let tempResponses = [...state.responses];
-      if (tempResponses.length > 0) {
-        tempResponses[tempResponses.length - 1].response += newResponseChunk.response;
-        state.responses = [...tempResponses];
-      } else {
-        state.responses.push
-        state.responses = [...state.responses, newResponseChunk];
+      const { newResponseChunk, topicId } = action.payload;
+      let index = state.responses[topicId].findIndex(response => response.id === newResponseChunk.id)
+      if (index !== -1) {
+        state.responses[topicId][index].content += newResponseChunk.content
+      }
+      else {
+        state.responses[topicId].push({ ...newResponseChunk })
       }
     },
     clearAllResponses: (state) => {

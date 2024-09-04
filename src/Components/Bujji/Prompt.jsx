@@ -42,7 +42,7 @@ const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit }) => {
     setShowPrompts(false); // Close the prompts menu after selecting a prompt
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const ele = document.getElementById('input-box')
     if (ele) {
       ele.focus()
@@ -59,13 +59,13 @@ const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  },[])
+  }, [])
 
   return (
     <div className="">
       {
-          showPrompts &&
-          <HelpPrompts onSelectPrompt={handlePromptSelection} ref={promptsRef} />
+        showPrompts &&
+        <HelpPrompts onSelectPrompt={handlePromptSelection} ref={promptsRef} />
       }
       <form
         onSubmit={(e) => {
@@ -77,20 +77,20 @@ const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit }) => {
         <div className="flex justify-between items-center">
           <button
             type="button" // Change to button type to prevent form submission
-            onClick={handleShowPrompts}            
+            onClick={handleShowPrompts}
             className="p-2 bg-transparent text-white rounded-full flex-shrink-0"
           >
             <WiStars className='icon-color' size={30} />
           </button>
           <textarea
-              id = 'input-box'
-              value={prompt}
-              onChange={handleTextChange}
-              onKeyDown={handleKeyDown}
-              rows={rows}
-              placeholder="E.g., Activate text summarization model"
-              className="prompt-placeholder p-2 w-full border-b-[1.5px] bg-transparent outline-none"
-              style={{ resize: 'none', overflow: 'hidden' }}
+            id='input-box'
+            value={prompt}
+            onChange={handleTextChange}
+            onKeyDown={handleKeyDown}
+            rows={rows}
+            placeholder="Message to Bujji..."
+            className="prompt-placeholder p-2 w-full border-b-[1.5px] bg-transparent outline-none"
+            style={{ resize: 'none', overflow: 'hidden' }}
           />
           <button
             type="submit"
@@ -101,7 +101,7 @@ const Prompt = ({ setStaticPrompt, setPrompt, prompt, onSubmit }) => {
         </div>
       </form>
       <div className=''>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );
@@ -123,8 +123,8 @@ const HelpPrompts = React.forwardRef(({ onSelectPrompt }, ref) => {
     <div ref={ref} className='text-gray-300 relative text-sm bg-gray-800 rounded-md p-2'>
       {prompts.map((prompt, index) => (
         <div key={index} className='py-2 cp hover:bg-gray-700 rounded-lg duration-200 transition flex' onClick={() => onSelectPrompt(prompt)}>
-            <WiStars className='icon-color mr-2' size={20} />
-            {prompt}
+          <WiStars className='icon-color mr-2' size={20} />
+          {prompt}
         </div>
       ))}
     </div>
