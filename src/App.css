@@ -1,0 +1,107 @@
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    scroll-behavior: smooth;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+
+  }
+  *::-webkit-scrollbar-thumb {    
+    @apply  bg-gradient-to-t from-orange-800 to-orange-300
+  }
+
+
+.font-main {
+    font-family: "Comfortaa", sans-serif;
+}
+
+.cp {
+  @apply cursor-pointer
+}
+
+.text-main {
+    @apply bg-clip-text text-transparent bg-gradient-to-t from-orange-800 to-orange-300
+}
+
+.bg-main {
+    @apply bg-gradient-to-t from-orange-800 to-orange-300
+}
+
+.bg-main-hover {
+    @apply bg-gradient-to-t hover:from-orange-800 hover:to-orange-300
+}
+
+.icon-color {
+  @apply text-orange-600 
+}
+
+b{
+  @apply font-extrabold bg-clip-text text-transparent bg-gradient-to-t from-orange-800 to-orange-300
+}
+b{
+  font-size: large;
+}
+
+.prompt-placeholder::placeholder {
+  opacity: 0.3; /* Adjust the opacity value as needed */
+}
+
+.dp::placeholder {
+  opacity: 0.3 !important; /* Adjust the opacity value as needed */
+}
+
+.border-main {
+  @apply border-orange-700 !important;
+}
+
+.i {
+  @apply bg-transparent p-2 border-2 rounded-md border-main outline-none dp !important
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 4s linear infinite;
+}
+
+.ent {
+  border: 1px solid gray;
+  margin-left: 3px;
+  margin-right: 3px;
+  font-size: 10px;
+  padding: 3px;
+  border-radius: 5px;
+  background-color: gray;
+  color: #f5f5f5;
+  font-weight: 600;
+}
+
+
+/* Hide the up and down arrows in all browsers */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Optional: Remove the spinner from the right side in some versions of Chrome */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
