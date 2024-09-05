@@ -4,36 +4,30 @@ import { BiLogOut } from "react-icons/bi";
 import { CiSettings } from "react-icons/ci";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { getUserName } from '../Bujji/Functions/localStorage';
-import { CgRename } from "react-icons/cg";
-import { MdOutlineDelete } from "react-icons/md";
-import { setIsDrawerOpen } from '../../redux/Slice';
-import apiCall from '../../Axios';
-import TopicItems from './TopicItems';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCurrentTopic, clearCurrentTopic } from '../../redux/Slice';
+import TopicItems from './TopicItems';
+import Settings from '../Bujji/Settings/Settings';
 
 const SideBar = ({
   isDrawerOpen,
 }) => {
-
-  const setIsDrawerOpenState = () => dispatch(setIsDrawerOpen())
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);  // Track modal open state
   const profileMenuRef = useRef(null);
-  const nav = useNavigate()
-  const { model_id } = useParams()
-  const dispatch = useDispatch()
+  const nav = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = `/get-started`;
-  }
-
+  };
 
   const gotoBujji = () => {
-    dispatch(clearCurrentTopic())
-    return nav(`/`)
-  }
+    dispatch(clearCurrentTopic());
+    return nav(`/`);
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -52,15 +46,21 @@ const SideBar = ({
     setProfileMenuOpen(!profileMenuOpen);
   };
 
+  const openSettings = () => {
+    setIsSettingsOpen(true);
+    toggleMenu()
+  };
 
+  const closeSettings = () => {
+    setIsSettingsOpen(false);
+  };
 
   return (
     <>
       {profileMenuOpen && (
         <div ref={profileMenuRef} className="absolute bottom-16 left-0 z-30 mt-2 w-60 bg-gray-800 border-gray-200 rounded shadow-lg">
-          {/* Dropdown menu content */}
           <ul className="py-1">
-            <li className="flex items-center hover:bg-gray-600 rounded-lg m-2 px-4 py-2 cursor-pointer">
+            <li onClick={openSettings} className="flex items-center hover:bg-gray-600 rounded-lg m-2 px-4 py-2 cursor-pointer">
               <CiSettings className="mr-2 icon-color" size={20} />
               Settings
             </li>
@@ -72,6 +72,7 @@ const SideBar = ({
           <div onClick={toggleMenu}></div>
         </div>
       )}
+
       <div
         className={`fixed top-0 left-0 h-full w-80 lg:w-64 text-sm bg-[#121418] transform transition-transform duration-300 z-10 ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'
           } md:translate-x-0 md:static`}
@@ -94,10 +95,14 @@ const SideBar = ({
           </div>
         </div>
       </div>
+
+      {/* Global settings modal */}
+      <Settings isOpen={isSettingsOpen} onClose={closeSettings} />
+
       {isDrawerOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-0 md:hidden"
-          onClick={setIsDrawerOpenState}
+          onClick={() => dispatch(setIsDrawerOpen())}
         >
         </div>
       )}
@@ -106,5 +111,3 @@ const SideBar = ({
 };
 
 export default SideBar;
-
-

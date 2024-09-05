@@ -28,9 +28,9 @@ const Response = ({
                 </div>
               </div>
             }
-            <div className='py-2 '>
+            <div className='py-2'>
               <h1 className='font-extrabold text-lg text-main font-main mb-2'>bujji</h1>
-              <div className={`${isStreaming ? 'animate-pulse' : ''}`}>
+              <div className={`${isStreaming ? 'animate-pulse' : ''} ${response.success ? '' : 'p-3 animate-pulse rounded-lg border-2 border-red-700'}`}>
                 <ReactMarkdown>
                   {response?.content}
 

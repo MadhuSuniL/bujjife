@@ -5,7 +5,7 @@ import Prompt from '../Components/Bujji/Prompt'
 import Intro from '../Components/Bujji/Intro'
 import WithWebsocketConnection from '../Wrappers/WithWebsocketConnection'
 import { useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const CurrentChat = ({
   isConnected,
@@ -14,13 +14,12 @@ const CurrentChat = ({
   sendQuery,
 }) => {
 
-  const nav = useNavigate()
   const { topic_id } = useParams()
   const topicId = topic_id || 'all'
   const responses = useSelector(state => state.store.responses)[topicId]
+  const currentSourceState = useSelector(state => state.store.currentSource)
   const [prompt, setPrompt] = useState('')
   const [staticPrompt, setStaticPrompt] = useState('')
-  const [showCursor, setShowCursor] = useState(false)
   const [scrollInterval, setScrollInterval] = useState(null)
 
 
@@ -48,7 +47,9 @@ const CurrentChat = ({
       sendQuery({
         query: prompt,
         topic: topicId,
-        model: "gemma2-9b-it"
+        source: {
+          ...currentSourceState
+        }
       })
       setPrompt('')
       scrollToHeight()

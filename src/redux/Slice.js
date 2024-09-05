@@ -46,6 +46,10 @@ const initialState = {
     "asteroids": [],
     "comets": []
   },
+  currentSource: {
+    type: "llm",
+    source: "gemma2-9b-it"
+  },
   isDrawerOpen: false,
   isNotesOpen: false,
   recentTopics: [],
@@ -81,7 +85,10 @@ export const Slice = createSlice({
     clearAllResponses: (state) => {
       state.responses = [];
     },
-
+    setCurrentSourceState: (state, action) => {
+      const { newSource } = action.payload
+      state.currentSource = { ...newSource }
+    },
     // Current model management
     setCurrentTopic: (state, action) => {
       const currentTopic = action.payload;
@@ -125,6 +132,7 @@ export const {
   setIsDrawerOpen,
   setIsNotesOpen,
   addNewRecentTopic,
+  setCurrentSourceState
 } = Slice.actions;
 
 export default Slice.reducer;
