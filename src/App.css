@@ -1,22 +1,23 @@
 *::-webkit-scrollbar {
-    width: 5px;
-    height: 3px;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    scroll-behavior: smooth;
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    border-radius: 10px;
+  width: 5px;
+  height: 3px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  scroll-behavior: smooth;
+}
 
-  }
-  *::-webkit-scrollbar-thumb {    
-    @apply  bg-gradient-to-t from-orange-800 to-orange-300
-  }
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-t from-orange-800 to-orange-300
+}
 
 
 .font-main {
-    font-family: "Comfortaa", sans-serif;
+  font-family: "Comfortaa", sans-serif;
 }
 
 .cp {
@@ -24,34 +25,34 @@
 }
 
 .text-main {
-    @apply bg-clip-text text-transparent bg-gradient-to-t from-orange-800 to-orange-300
+  @apply bg-clip-text text-transparent bg-gradient-to-t from-orange-800 to-orange-300
 }
 
 .bg-main {
-    @apply bg-gradient-to-t from-orange-800 to-orange-300
+  @apply bg-gradient-to-t from-orange-800 to-orange-300
 }
 
 .bg-main-hover {
-    @apply bg-gradient-to-t hover:from-orange-800 hover:to-orange-300
+  @apply bg-gradient-to-t hover:from-orange-800 hover:to-orange-300
 }
 
 .icon-color {
-  @apply text-orange-600 
+  @apply text-orange-600
 }
 
-b{
-  @apply font-extrabold bg-clip-text text-transparent bg-gradient-to-t from-orange-800 to-orange-300
+strong {
+  @apply font-bold mr-1 !important;
 }
-b{
-  font-size: large;
-}
+
 
 .prompt-placeholder::placeholder {
-  opacity: 0.3; /* Adjust the opacity value as needed */
+  opacity: 0.3;
+  /* Adjust the opacity value as needed */
 }
 
 .dp::placeholder {
-  opacity: 0.3 !important; /* Adjust the opacity value as needed */
+  opacity: 0.3 !important;
+  /* Adjust the opacity value as needed */
 }
 
 .border-main {
@@ -66,6 +67,7 @@ b{
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -96,7 +98,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
+  -moz-appearance: textfield;
+  /* Firefox */
 }
 
 /* Optional: Remove the spinner from the right side in some versions of Chrome */

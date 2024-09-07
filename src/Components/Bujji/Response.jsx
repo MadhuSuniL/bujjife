@@ -15,7 +15,7 @@ const Response = ({
   });
 
   return (
-    <div className='p-3 relative'>
+    <div className='p-3 relative font-thin '>
       {
         responses?.map((response, index) =>
           <div key={index}>
@@ -23,13 +23,13 @@ const Response = ({
               response?.query &&
               <div className='grid grid-cols-9 md:grid-cols-12 '>
                 <div className='col-span-8 md:col-span-11'>
-                  <h1 className='font-extrabold text-lg text-main font-main'>You</h1>
+                  <h1 className='font-extrabold text-lg text-main'>You</h1>
                   <p className='py-3 '>{response?.query}</p>
                 </div>
               </div>
             }
             <div className='py-2'>
-              <h1 className='font-extrabold text-lg text-main font-main mb-2'>bujji</h1>
+              <h1 className='font-extrabold text-lg text-main mb-2'>bujji</h1>
               <div className={`${isStreaming ? 'animate-pulse' : ''} ${response.success ? '' : 'p-3 animate-pulse rounded-lg border-2 border-red-700'}`}>
                 <ReactMarkdown>
                   {response?.content}
